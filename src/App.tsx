@@ -8,6 +8,7 @@ import Svg from './components/Svg';
 import { useState } from 'react';
 import Slider from './components/Slider';
 import Layout from './components/Layout';
+import Project from './components/Project';
 
 const Container = styled(motion.div)`
   color: black;
@@ -62,7 +63,8 @@ function App() {
       </AnimatePresence>
       <button onClick={toggle}>Click</button>
       {/* <Slider /> */}
-      <Layout />
+      {/* <Layout /> */}
+      <Project />
     </Container>
   );
 }
