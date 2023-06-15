@@ -1,5 +1,6 @@
 import Motion from './components/Motion';
 import { styled } from 'styled-components';
+import Variants from './components/Variants';
 
 const Container = styled.div`
   color: black;
@@ -14,7 +15,8 @@ const Container = styled.div`
 function App() {
   return (
     <Container>
-      <Motion />
+      {/* <Motion /> */}
+      <Variants />
     </Container>
   );
 }
