@@ -3,25 +3,62 @@ import { styled } from 'styled-components';
 import Variants from './components/Variants';
 import Gestures from './components/Gestures';
 import MotionValue from './components/MotionValue';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import Svg from './components/Svg';
+import { useState } from 'react';
 
 const Container = styled(motion.div)`
   color: black;
   background: linear-gradient(135deg, #e09, #d0e);
   width: 100vw;
-  height: 1000px;
+  height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
+const Box = styled(motion.div)`
+  width: 300px;
+  height: 300px;
+  background-color: red;
+`;
+
+const boxVars = {
+  initial: { opacity: 0, scale: 0 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    rotateZ: 360,
+  },
+  leaving: {
+    opacity: 0,
+    y: 50,
+    scale: 0,
+  },
+};
+
 function App() {
+  const [showing, setShowing] = useState(false);
+  const toggle = () => setShowing((prev) => !prev);
   return (
     <Container>
       {/* <Motion /> */}
       {/* <Variants /> */}
       {/* <Gestures/> */}
-      <MotionValue />
+      {/* <MotionValue /> */}
+      {/* <Svg /> */}
+      <AnimatePresence>
+        {showing ? (
+          <Box
+            variants={boxVars}
+            initial='initial'
+            animate='visible'
+            exit='leaving'
+          />
+        ) : null}
+      </AnimatePresence>
+      <button onClick={toggle}>Click</button>
     </Container>
   );
 }
