@@ -2,6 +2,7 @@ import Motion from './components/Motion';
 import { styled } from 'styled-components';
 import Variants from './components/Variants';
 import Gestures from './components/Gestures';
+import MotionValue from './components/MotionValue';
 
 const Container = styled.div`
   color: black;
@@ -18,7 +19,8 @@ function App() {
     <Container>
       {/* <Motion /> */}
       {/* <Variants /> */}
-      <Gestures/>
+      {/* <Gestures/> */}
+      <MotionValue />
     </Container>
   );
 }
