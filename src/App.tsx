@@ -9,6 +9,7 @@ import { useState } from 'react';
 import Slider from './components/Slider';
 import Layout from './components/Layout';
 import Project from './components/Project';
+import HookForm from './hook-form/HookForm';
 
 const Container = styled(motion.div)`
   color: black;
@@ -51,7 +52,7 @@ function App() {
       {/* <Gestures/> */}
       {/* <MotionValue /> */}
       {/* <Svg /> */}
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {showing ? (
           <Box
             variants={boxVars}
@@ -60,11 +61,12 @@ function App() {
             exit='leaving'
           />
         ) : null}
-      </AnimatePresence>
-      <button onClick={toggle}>Click</button>
+      </AnimatePresence> */}
+      {/* <button onClick={toggle}>Click</button> */}
       {/* <Slider /> */}
       {/* <Layout /> */}
-      <Project />
+      {/* <Project /> */}
+      <HookForm />
     </Container>
   );
 }
