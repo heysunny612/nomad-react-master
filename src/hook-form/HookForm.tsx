@@ -6,6 +6,7 @@ interface IForm {
   last_name: string;
   password: string;
   password_check: string;
+  extraError?: string;
 }
 
 export default function HookForm() {
@@ -13,12 +14,23 @@ export default function HookForm() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<IForm>({
     defaultValues: {
       email: '@naver.com',
     },
   });
-  const onVaild = (data) => {};
+  const onVaild = (data: IForm) => {
+    if (data.password !== data.password_check) {
+      setError(
+        'password',
+        { message: '입력한 패스워드가 일치하지 않습니다.' },
+        { shouldFocus: true }
+      );
+    }
+    // 에러를 설정할 수 있음 ex) 서버에러등
+    // setError('extraError', { message: 'Server offline.' });
+  };
 
   return (
     <form
@@ -36,28 +48,38 @@ export default function HookForm() {
         })}
         placeholder='Email'
       />
-      {errors.email && <span>{errors?.email?.message + ''}</span>}
+      <span>{errors?.email?.message}</span>
       <input
         type='text'
         {...register('first_name', {
           required: '이름을 입력해주세요',
-          minLength: { value: 5, message: 'Your password is too short' },
+          validate: (value) =>
+            value.includes('nico') ? '이름에 nico를 포함시키지마세요' : true,
+          minLength: { value: 5, message: '이름 너무 짧아요' },
         })}
         placeholder='First Name'
       />
-      {errors.first_name && <span>{errors?.first_name?.message + ''}</span>}
+      <span>{errors?.first_name?.message}</span>
       <input
         type='text'
-        {...register('last_name', { required: '성을 입력해주세요' })}
+        {...register('last_name', {
+          required: '성을 입력해주세요',
+          validate: {
+            noNico: (value) =>
+              value.includes('nico') ? '이름에 nico를 포함시키지마세요' : true,
+            noNick: (value) =>
+              value.includes('nick') ? '이름에 nick를 포함시키지마세요' : true,
+          },
+        })}
         placeholder='Last Name'
       />
-      {errors.last_name && <span>{errors?.last_name?.message + ''}</span>}
+      <span>{errors?.last_name?.message}</span>
       <input
         type='text'
         {...register('password', { required: '비밀번호를 입력해주세요' })}
         placeholder='Password'
       />
-      {errors.password && <span>{errors?.password?.message + ''}</span>}
+      <span>{errors?.password?.message}</span>
       <input
         type='text'
         {...register('password_check', {
@@ -65,10 +87,9 @@ export default function HookForm() {
         })}
         placeholder='Password Check'
       />
-      {errors.password_check && (
-        <span>{errors?.password_check?.message + ''}</span>
-      )}
+      <span>{errors?.password_check?.message}</span>
       <button>Add</button>
+      <span>{errors?.extraError?.message}</span>
     </form>
   );
 }
